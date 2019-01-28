@@ -2,18 +2,16 @@ version: "3.1"
 services:
   qpid:
     image: damdamdeo/apache-qpid-broker-j:7.1.0
-    environment:
-      POSTGRES_USER=postgres
-      POSTGRES_PASSWORD=postgres
-      POSTGRES_DB=postgres
     ports:
-      - "8080:8080"
-      - "5672:5672"
+      - 8080:8080
+      - 5672:5672
+#    environment:
+#      - ""
     depends_on:
-      - "db"
-    command: ["./wait-for-it.sh", "db:5432", "--"]
+      - db
   db:
     image: centos/postgresql-96-centos7
-    env:
-
-
+    environment:
+      -  POSTGRES_USER=postgres
+      -  POSTGRES_PASSWORD=postgres
+      -  POSTGRES_DB=postgres

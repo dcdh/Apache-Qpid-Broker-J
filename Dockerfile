@@ -6,8 +6,6 @@ RUN cd /usr/local \
 
 COPY config.json /usr/local
 
-# TODO passer en argument les ports + utilisateur par defaut
-
 ENV AMQP_PORT=5672
 ENV HTTP_PORT=8080
 ENV USERNAME=guest
