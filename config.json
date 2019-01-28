@@ -1,16 +1,15 @@
 {
   "name": "${broker.name}",
-  "modelVersion": "6.0",
+  "modelVersion": "7.1",
   "authenticationproviders": [
     {
-      "name": "passwordFile",
-      "type": "PlainPasswordFile",
-      "path": "${qpid.home_dir}${file.separator}etc${file.separator}passwd",
-      "preferencesproviders": [
+      "name": "plain",
+      "type": "Plain",
+      "users": [
         {
-          "name": "fileSystemPreferences",
-          "type": "FileSystemPreferences",
-          "path": "${qpid.work_dir}${file.separator}user.preferences.json"
+          "name" : "${qpid.username}",
+          "type" : "managed",
+          "password" : "${qpid.password}"
         }
       ]
     }
@@ -38,6 +37,12 @@
           "type": "NameAndLevel",
           "level": "INFO",
           "loggerName": "qpid.message.*"
+        },
+        {
+          "name": "Statistics",
+          "type": "NameAndLevel",
+          "level": "INFO",
+          "loggerName": "qpid.statistics.*"
         }
       ]
     },
@@ -62,6 +67,12 @@
           "type": "NameAndLevel",
           "level": "INFO",
           "loggerName": "qpid.message.*"
+        },
+        {
+          "name": "Statistics",
+          "type": "NameAndLevel",
+          "level": "INFO",
+          "loggerName": "qpid.statistics.*"
         }
       ]
     }
@@ -70,7 +81,7 @@
     {
       "name": "AMQP",
       "port": "${qpid.amqp_port}",
-      "authenticationProvider": "passwordFile",
+      "authenticationProvider": "plain",
       "virtualhostaliases": [
         {
           "name": "nameAlias",
@@ -89,7 +100,7 @@
     {
       "name": "HTTP",
       "port": "${qpid.http_port}",
-      "authenticationProvider": "passwordFile",
+      "authenticationProvider": "plain",
       "protocols": [
         "HTTP"
       ]
