@@ -8,7 +8,12 @@ COPY config.json /usr/local
 
 # TODO passer en argument les ports + utilisateur par defaut
 
-CMD ["/usr/local/qpid-broker/7.1.0/bin/qpid-server", "-icp", "/usr/local/config.json", "-prop", "\"qpid.amqp_port=5672\"", "-prop", "\"qpid.a_amqp_port=5673\"", "-prop", "\"qpid.http_port=8080\"", "-prop", "\"qpid.username=guest\"", "-prop", "\"qpid.password=guest\""]
+ENV AMQP_PORT=5672
+ENV HTTP_PORT=8080
+ENV USERNAME=guest
+ENV PASSWORD=guest
+
+CMD ["/usr/local/qpid-broker/7.1.0/bin/qpid-server", "-icp", "/usr/local/config.json", "-prop", "\"qpid.amqp_port=${AMQP_PORT}\"", "-prop", "\"qpid.http_port=${HTTP_PORT}\"", "-prop", "\"qpid.username=${USERNAME}\"", "-prop", "\"qpid.password=${PASSWORD}\""]
 
 EXPOSE 5672 8080
 
